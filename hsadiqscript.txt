@@ -2,7 +2,7 @@ mysql -u root -p
 SHOW DATABASES; 
 DROP DATABASE IF EXISTS hsadiqassign2dp; 
 CREATE DATABASE hsadiqassign2dp; 
-USE hsasdiqassign2dp; 
+USE hsadiqassign2dp; 
 GRANT USAGE ON *.* TO 'ta'@'localhost';
 DROP USER 'ta'@'localhost';
 CREATE USER 'ta'@'localhost' IDENTIFIED BY 'cs3319';
