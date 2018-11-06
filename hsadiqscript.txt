@@ -1,0 +1,16 @@
+mysql -u root -p
+SHOW DATABASES; 
+DROP DATABASE IF EXISTS hsadiqassign2dp; 
+CREATE DATABASE hsadiqassign2dp; 
+USE hsasdiqassign2dp; 
+GRANT USAGE ON *.* TO 'ta'@'localhost';
+DROP USER 'ta'@'localhost';
+CREATE USER 'ta'@'localhost' IDENTIFIED BY 'cs3319';
+GRANT ALL PRIVILEGES ON yourwesternuseridassign2db.* TO 'ta'@'localhost';
+FLUSH PRIVILEGES;
+SHOW TABLES; 
+CREATE TABLE Product (ProductID VARCHAR(2), Description VARCHAR(20), Cost FLOAT, Quantity int, PRIMARY KEY (ProductID));
+CREATE TABLE Agent (AgentID VARCHAR(2), FName VARCHAR(30), LName VARCHAR(30), Location VARCHAR(15), CommissionPercentage INTEGER, PRIMARY KEY(AgentID));
+CREATE TABLE Customer (CustomerID VARCHAR(2), FName VARCHAR(30), LName VARCHAR(30), Location VARCHAR(15), PhoneNumber VARCHAR(10), HelpingAgentID VARCHAR(2), PRIMARY KEY (CustomerID), FOREIGN KEY(HelpingAgentID) REFERENCES Agent(AgentID));
+CREATE TABLE PurchaseHistory (CustomerID VARCHAR(2), ProductID VARCHAR(2), Quantity INTEGER, PRIMARY KEY (ProductID, CustomerID), FOREIGN KEY(ProductID) REFERENCES Product(ProductID), FOREIGN KEY(CustomerID) REFERENCES Customer(CustomerID));
+SHOW TABLES;
