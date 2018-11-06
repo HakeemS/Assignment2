@@ -1,4 +1,3 @@
-mysql -u root -p
 SHOW DATABASES; 
 DROP DATABASE IF EXISTS hsadiqassign2dp; 
 CREATE DATABASE hsadiqassign2dp; 
