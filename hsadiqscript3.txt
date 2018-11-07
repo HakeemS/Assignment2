@@ -1,0 +1,31 @@
+USE hsadiqassign2dp;
+-- Query 1
+SELECT Description FROM Product;
+-- Query 2
+SELECT DISTINCT Location FROM Customer; 
+-- Query 3
+SELECT * FROM Agent ORDER BY Location; 
+-- Query 4
+SELECT FName, LName FROM Customer WHERE Location = "SpringField";
+-- Query 5
+SELECT C.LName FROM Customer C, Agent A WHERE C.HelpingAgentID = A.AgentID AND A.FName = "Regis";
+-- Query 6
+SELECT Description FROM Product WHERE Description LIKE "%pad%" or "%Pad%";
+-- Query 7
+SELECT C.LName, P.Description, H.Quantity FROM Customer C, Product P, PurchaseHistory H WHERE P.ProductID = H.ProductID AND C.CustomerID = H.CustomerID; 
+-- Query 8
+SELECT SUM(Quantity) AS "Homer's Total Purchases" FROM PurchaseHistory H, Customer C WHERE H.CustomerID = C.CustomerID AND C.FName = "Homer";
+-- Query 9 
+SELECT FName, LName, SUM(Quantity) FROM PurchaseHistory H, Customer C WHERE H.CustomerID = C.CustomerID GROUP BY FName;
+-- Query 10
+SELECT Description, P.Quantity FROM Product P LEFT JOIN PurchaseHistory H ON P.ProductID = H.ProductID WHERE H.CustomerID IS NULL GROUP BY Description;
+-- Query 11
+
+-- Query 12
+SELECT A.FName, A.LName, C.FName, C.LName FROM Agent A INNER JOIN Customer C ON A.Location = C.Location WHERE A.Location = C.Location AND NOT (C.HelpingAgentID = A.AgentID);
+-- Query 13
+SELECT SUM(H.Quantity) AS "All Knee Pads Purchased" FROM PurchaseHistory H INNER JOIN Product P ON P.ProductID = H.ProductID WHERE Description = "Knee Pads";
+-- Query 14
+SELECT Description FROM PurchaseHistory H INNER JOIN Product P ON P.ProductID = H.ProductID GROUP BY Description HAVING COUNT(Description) > 3;
+-- Query 15
+SELECT A.FName, A.LName FROM Agent A INNER JOIN Customer C ON A.AgentID = C.HelpingAgentID INNER JOIN PurchaseHistory H ON H.CustomerID = C.CustomerID INNER JOIN Product P ON P.ProductID = H.ProductID WHERE P.Description = "Elbow Pads";
