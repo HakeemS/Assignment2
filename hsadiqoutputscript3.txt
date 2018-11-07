@@ -1,0 +1,121 @@
+--------------
+SELECT Description FROM Product
+--------------
+
+Description
+Bike
+Socks
+Shin Pads
+Elbow Pads
+Knee Pads
+Roller Blades
+Helmet
+--------------
+SELECT DISTINCT Location FROM Customer
+--------------
+
+Location
+Boston
+Springfield
+Kypto
+Providence
+--------------
+SELECT * FROM Agent ORDER BY Location
+--------------
+
+AgentID	FName	LName	Location	CommissionPercentage
+33	David	Letterman	Bedrock	100
+11	Regis	Philbin	Boston	33
+22	Courtney	Cox	New York	25
+12	Rosie	Cox	Ottawa	50
+66	Rosie	ODonnell	Ottawa	100
+99	Hugh	Grant	Springfield	16
+69	Hakeem	Sadiq	Windsor	96
+--------------
+SELECT FName, LName FROM Customer WHERE Location = "SpringField"
+--------------
+
+FName	LName
+Monty	Burns
+Homer	Simpson
+Sideshow	Bob
+--------------
+SELECT C.LName FROM Customer C, Agent A WHERE C.HelpingAgentID = A.AgentID AND A.FName = "Regis"
+--------------
+
+LName
+Rubble
+Flintstone
+--------------
+SELECT Description FROM Product WHERE Description LIKE "%pad%" or "%Pad%"
+--------------
+
+Description
+Shin Pads
+Elbow Pads
+Knee Pads
+--------------
+SELECT C.LName, P.Description, H.Quantity FROM Customer C, Product P, PurchaseHistory H WHERE P.ProductID = H.ProductID AND C.CustomerID = H.CustomerID
+--------------
+
+LName	Description	Quantity
+Griffens	Elbow Pads	19
+Flintstone	Elbow Pads	2
+Flintstone	Knee Pads	2
+Simpson	Socks	14
+Simpson	Elbow Pads	10
+Simpson	Helmet	20
+Bob	Socks	5
+Bob	Elbow Pads	5
+Bob	Knee Pads	5
+Bob	Helmet	5
+--------------
+SELECT SUM(Quantity) AS "Homer's Total Purchases" FROM PurchaseHistory H, Customer C WHERE H.CustomerID = C.CustomerID AND C.FName = "Homer"
+--------------
+
+Homer's Total Purchases
+44
+--------------
+SELECT FName, LName, SUM(Quantity) FROM PurchaseHistory H, Customer C WHERE H.CustomerID = C.CustomerID GROUP BY FName
+--------------
+
+FName	LName	SUM(Quantity)
+Fred	Flintstone	4
+Homer	Simpson	44
+Peter	Griffens	19
+Sideshow	Bob	20
+--------------
+SELECT Description, P.Quantity FROM Product P LEFT JOIN PurchaseHistory H ON P.ProductID = H.ProductID WHERE H.CustomerID IS NULL GROUP BY Description
+--------------
+
+Description	Quantity
+Bike	200
+Roller Blades	89
+Shin Pads	50
+--------------
+SELECT A.FName, A.LName, C.FName, C.LName FROM Agent A INNER JOIN Customer C ON A.Location = C.Location WHERE A.Location = C.Location AND NOT (C.HelpingAgentID = A.AgentID)
+--------------
+
+FName	LName	FName	LName
+Hugh	Grant	Sideshow	Bob
+--------------
+SELECT SUM(H.Quantity) AS "All Knee Pads Purchased" FROM PurchaseHistory H INNER JOIN Product P ON P.ProductID = H.ProductID WHERE Description = "Knee Pads"
+--------------
+
+All Knee Pads Purchased
+7
+--------------
+SELECT Description FROM PurchaseHistory H INNER JOIN Product P ON P.ProductID = H.ProductID GROUP BY Description HAVING COUNT(Description) > 3
+--------------
+
+Description
+Elbow Pads
+--------------
+SELECT A.FName, A.LName FROM Agent A INNER JOIN Customer C ON A.AgentID = C.HelpingAgentID INNER JOIN PurchaseHistory H ON H.CustomerID = C.CustomerID INNER JOIN Product P ON P.ProductID = H.ProductID WHERE P.Description = "Elbow Pads"
+--------------
+
+FName	LName
+Regis	Philbin
+Rosie	Cox
+Hugh	Grant
+Hugh	Grant
