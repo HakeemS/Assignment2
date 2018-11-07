@@ -6,7 +6,9 @@ SELECT * FROM PurchaseHistory;
 CREATE VIEW view1 AS SELECT C.FName, C.LName, P.description, H.Quantity, P.Cost, CAST((H.Quantity*P.Cost) AS DECIMAL (38,2)) "Total Cost" FROM Product P INNER JOIN PurchaseHistory H on P.ProductID = H.ProductID INNER JOIN Customer C ON C.CustomerID = H.CustomerID ORDER BY C.LName;
 SELECT * FROM view1;
 SELECT FName, LName, description, Quantity, Cost, CAST(SUM(Cost*Quantity) AS DECIMAL (38,2)) "Total Accumulated Cost" FROM view1 GROUP BY  FName HAVING(SUM(COST*Quantity) > 100);
+Select* FROM Product;
 DELETE FROM Product WHERE ProductID = 17;
 -- The row above was successful because my product is not referenced in the purchase history table
+SELECT * FROM Product;
 DELETE FROM Agent WHERE Location = "Springfield";
 -- The row above was not successfull because the agent who is located in springfield is referenced by a customer in the customer table
